@@ -3,433 +3,573 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namma Web | AI for Everyone - Strategic Educational Partnerships</title>
-    <meta name="description" content="Global Standard AI Certification for Educational Institutions.">
+    <title>Namma Web | Global AI Certification & Strategic Partnerships</title>
+    <meta name="description" content="The Gold Standard in AI Education for Schools, Colleges, and Universities. Mandatory Certification & Placement Integration.">
 
+    <!-- TAILWIND CSS (Utility First Styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- LUCIDE ICONS (Modern UI Icons) -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FONTS: Inter & Playfair Display for Luxury Feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom Theme Overrides for "Luxury/Coursera" Feel */
+        /* --- LUXURY THEME VARIABLES --- */
         :root {
-            --bg-primary: #0f172a; /* Slate 900 */
-            --bg-secondary: #1e293b; /* Slate 800 */
-            --brand-blue: #2563eb; /* Blue 600 */
-            --brand-gold: #fbbf24; /* Amber 400 - for subtle luxury accents */
+            --bg-deep: #020617;    /* Slate 950 */
+            --bg-card: #0f172a;    /* Slate 900 */
+            --accent-gold: #fbbf24; /* Amber 400 */
+            --accent-blue: #3b82f6; /* Blue 500 */
+            --text-main: #f1f5f9;   /* Slate 100 */
+            --text-muted: #94a3b8;  /* Slate 400 */
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            color: #f8fafc;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            scroll-behavior: smooth;
         }
 
-        /* Smooth Scrolling */
-        html { scroll-behavior: smooth; }
-
-        /* Animations */
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        h1, h2, h3, .serif-font {
+            font-family: 'Playfair Display', serif;
         }
 
-        /* Button Styles */
-        .btn-luxury {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+        /* --- ANIMATIONS --- */
+        .fade-up { animation: fadeUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- BUTTONS --- */
+        .btn-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: #0f172a;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5); }
+
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
             transition: all 0.3s ease;
         }
-        .btn-luxury:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.5);
-        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
-        /* Quiz Modal Styles */
-        #quiz-modal { display: none; }
-        .active-modal { display: flex; }
+        /* --- UTILITIES --- */
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
-        .accordion-content { transition: max-height 0.3s ease-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
-        .accordion-open { max-height: 500px; padding-top: 1rem; }
+        /* Hide scrollbar for horizontal scroll containers */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Quiz Timer Bar */
+        .timer-bar { transition: width 1s linear; }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 glass-panel border-b border-slate-700/50">
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-2">
-                    <div class="bg-blue-600 p-2 rounded-lg">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-2 rounded-lg shadow-lg">
                         <i data-lucide="cpu" class="text-white w-6 h-6"></i>
                     </div>
-                    <span class="text-2xl font-bold tracking-tight text-white">NAMMA <span class="text-blue-500">WEB</span></span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#program" class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition">Program</a>
-                        <a href="#faq" class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition">For Principals</a>
-                        <a href="#payment" class="hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition">Fees & Payment</a>
-                        <button onclick="openLogin()" class="btn-luxury text-white px-6 py-2 rounded-full text-sm font-bold flex items-center gap-2">
-                            <i data-lucide="user-circle" class="w-4 h-4"></i> Student Login
-                        </button>
+                    <div class="leading-tight">
+                        <span class="text-xl font-bold tracking-wide text-white block">NAMMA WEB</span>
+                        <span class="text-[10px] uppercase tracking-widest text-blue-400 font-semibold">Education Intelligence</span>
                     </div>
                 </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button class="text-gray-300 hover:text-white p-2">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#curriculum" class="text-sm font-medium hover:text-blue-400 transition">Curriculum</a>
+                    <a href="#pricing" class="text-sm font-medium hover:text-blue-400 transition">Institutional Pricing</a>
+                    <a href="#socials" class="text-sm font-medium hover:text-blue-400 transition">Verify Us</a>
+                    <button onclick="openLogin()" class="btn-gold px-6 py-2 rounded-full text-sm flex items-center gap-2">
+                        <i data-lucide="user-check" class="w-4 h-4"></i> Student Portal
                     </button>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
             </div>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 p-4 space-y-4">
+            <a href="#curriculum" class="block text-slate-300">Curriculum</a>
+            <a href="#pricing" class="block text-slate-300">Pricing</a>
+            <button onclick="openLogin()" class="w-full btn-gold py-3 rounded-lg mt-2">Student Login</button>
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 opacity-20 pointer-events-none">
-            <div class="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-            <div class="absolute top-20 right-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        </div>
-
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
+        <div class="absolute inset-0 bg-slate-950/90"></div> <!-- Dark Overlay -->
+        
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-300 text-sm font-semibold mb-8">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                </span>
-                Startup India Recognized & Award Winning 
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-widest mb-8 fade-up" style="animation-delay: 0.1s;">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Admissions Open: Academic Year 2025-26
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6">
-                AI for Everyone: <br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">The Global Proficiency Standard</span>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight fade-up" style="animation-delay: 0.2s;">
+                The Future of Education is <br />
+                <span class="gradient-text">Artificial Intelligence</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-300">
-                Empowering Schools & Colleges with Mandatory AI Certification. 
-                Integrated with <span class="text-white font-bold">Namma Web Talent Acquisition</span> for premium placements and internships.
+            
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 fade-up" style="animation-delay: 0.3s;">
+                A mandatory, government-recognized certification program tailored for Schools, Colleges, and Universities. 
+                <span class="text-white font-semibold">100% Placement Support</span> via Namma Web Talent Acquisition.
             </p>
-            <div class="mt-10 flex justify-center gap-4">
-                <a href="#demo" class="btn-luxury px-8 py-4 rounded-lg text-lg font-bold flex items-center">
-                    <i data-lucide="play-circle" class="w-5 h-5 mr-2"></i> Watch Demo
-                </a>
-                <a href="#payment" class="px-8 py-4 rounded-lg text-lg font-bold border border-slate-600 hover:bg-slate-800 transition flex items-center text-slate-200">
-                    Partner With Us
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 fade-up" style="animation-delay: 0.4s;">
+                <button onclick="openVideoModal()" class="btn-gold px-8 py-4 rounded-lg text-lg flex items-center justify-center gap-3">
+                    <i data-lucide="play-circle" class="w-6 h-6"></i> Watch Program Demo
+                </button>
+                <a href="#pricing" class="btn-outline px-8 py-4 rounded-lg text-lg flex items-center justify-center gap-3">
+                    <i data-lucide="building-2" class="w-6 h-6"></i> For Principals
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="demo" class="py-20 bg-slate-900 border-y border-slate-800">
+    <!-- SOCIAL PROOF -->
+    <section id="socials" class="py-10 border-b border-slate-800 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-8 items-center opacity-70 hover:opacity-100 transition duration-500">
+            <span class="text-sm uppercase tracking-widest text-slate-500">Official Partners & Verified Channels:</span>
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/company/namma-web" target="_blank" class="flex items-center gap-2 text-white hover:text-blue-400 transition">
+                <i data-lucide="linkedin" class="w-5 h-5"></i> <span class="font-semibold">LinkedIn Verified</span>
+            </a>
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@nammaweb" target="_blank" class="flex items-center gap-2 text-white hover:text-red-500 transition">
+                <i data-lucide="youtube" class="w-5 h-5"></i> <span class="font-semibold">Official YouTube</span>
+            </a>
+            <!-- Award -->
+            <div class="flex items-center gap-2 text-yellow-500">
+                <i data-lucide="award" class="w-5 h-5"></i> <span class="font-semibold">FKCCI Manthan Awardee</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEEP DIVE CURRICULUM (Accordion Style) -->
+    <section id="curriculum" class="py-24 bg-slate-950">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12 text-white">Experience the <span class="text-blue-400">Masterclass</span></h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <div class="flex gap-4 items-start">
-                        <div class="bg-blue-500/20 p-3 rounded-lg text-blue-400">
-                            <i data-lucide="monitor-play" class="w-6 h-6"></i>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Precision Curriculum</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    We don't teach "generic AI". We teach industry-specific implementation. Select a stream to see the syllabus depth.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Item 1: Schools -->
+                <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden hover:border-blue-500/50 transition">
+                    <button class="w-full px-6 py-5 flex justify-between items-center text-left" onclick="toggleAccordion('c1')">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-blue-900/30 p-3 rounded-lg text-blue-400"><i data-lucide="backpack" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Schools (Grades 1-10)</h3>
+                                <p class="text-xs text-slate-400">Logic, Safety & Creativity</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Live Tool Interaction</h3>
-                            <p class="text-slate-400 mt-2">Students don't just watch; they build. From generating code with Copilot to designing art with Midjourney.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start">
-                        <div class="bg-purple-500/20 p-3 rounded-lg text-purple-400">
-                            <i data-lucide="brain-circuit" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Adaptive Learning</h3>
-                            <p class="text-slate-400 mt-2">Curriculum adapts to Grade 5 logic or Engineering complexity dynamically.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start">
-                        <div class="bg-green-500/20 p-3 rounded-lg text-green-400">
-                            <i data-lucide="award" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">Certified Proficiency</h3>
-                            <p class="text-slate-400 mt-2">Every participant receives a verifiable Global AI Proficiency Certificate.</p>
-                        </div>
+                        <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-c1"></i>
+                    </button>
+                    <div id="content-c1" class="hidden px-6 pb-6 text-slate-300 text-sm space-y-3 border-t border-slate-800 pt-4">
+                        <p><strong class="text-white">Grade 1-4:</strong> Introduction to Logic, Pattern Recognition, AI vs. Robots, Digital Safety (Good/Bad Touch online).</p>
+                        <p><strong class="text-white">Grade 5-8:</strong> Prompt Writing for Homework, Generating Images for Projects, Introduction to Algorithms (No Code).</p>
+                        <p><strong class="text-white">Grade 9-10:</strong> Ethical AI Use, Python Basics (Optional), Future Career Mapping with AI Tools.</p>
                     </div>
                 </div>
-                <div class="relative aspect-video bg-black rounded-2xl overflow-hidden border border-slate-700 shadow-2xl group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Classroom Demo" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="bg-white/10 backdrop-blur-sm p-4 rounded-full border border-white/20 group-hover:scale-110 transition">
-                            <i data-lucide="play" class="w-8 h-8 text-white fill-white"></i>
+
+                <!-- Item 2: Engineering -->
+                <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden hover:border-blue-500/50 transition">
+                    <button class="w-full px-6 py-5 flex justify-between items-center text-left" onclick="toggleAccordion('c2')">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-purple-900/30 p-3 rounded-lg text-purple-400"><i data-lucide="code-2" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Engineering (CS/IS/EC)</h3>
+                                <p class="text-xs text-slate-400">Automation & Development</p>
+                            </div>
                         </div>
+                        <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-c2"></i>
+                    </button>
+                    <div id="content-c2" class="hidden px-6 pb-6 text-slate-300 text-sm space-y-3 border-t border-slate-800 pt-4">
+                        <p><strong class="text-white">Coding Assistants:</strong> Mastery of GitHub Copilot, Tabnine, and CodeLlama for 10x faster development.</p>
+                        <p><strong class="text-white">System Design:</strong> Using LLMs to architect scalable databases and cloud infrastructure.</p>
+                        <p><strong class="text-white">Placement Hack:</strong> Resume ATS Optimization & Automated Portfolio Generation.</p>
                     </div>
-                    <div class="absolute bottom-4 left-4 right-4">
-                        <div class="h-1 bg-slate-700 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 w-1/3"></div>
+                </div>
+
+                <!-- Item 3: Medical & Pharmacy -->
+                <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden hover:border-blue-500/50 transition">
+                    <button class="w-full px-6 py-5 flex justify-between items-center text-left" onclick="toggleAccordion('c3')">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-green-900/30 p-3 rounded-lg text-green-400"><i data-lucide="stethoscope" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Medical & Pharmacy</h3>
+                                <p class="text-xs text-slate-400">Research & Diagnosis Support</p>
+                            </div>
                         </div>
+                        <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-c3"></i>
+                    </button>
+                    <div id="content-c3" class="hidden px-6 pb-6 text-slate-300 text-sm space-y-3 border-t border-slate-800 pt-4">
+                        <p><strong class="text-white">Drug Discovery:</strong> How AI simulates molecular folding (AlphaFold concepts).</p>
+                        <p><strong class="text-white">Research:</strong> Using AI to summarize 100+ page medical journals in seconds.</p>
+                        <p><strong class="text-white">Pharmacy:</strong> Automated inventory management and drug interaction checking using AI databases.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Law & Commerce -->
+                <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden hover:border-blue-500/50 transition">
+                    <button class="w-full px-6 py-5 flex justify-between items-center text-left" onclick="toggleAccordion('c4')">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-yellow-900/30 p-3 rounded-lg text-yellow-400"><i data-lucide="scale" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Law, Commerce & MBA</h3>
+                                <p class="text-xs text-slate-400">Analysis & Drafting</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="text-slate-500 transition-transform" id="icon-c4"></i>
+                    </button>
+                    <div id="content-c4" class="hidden px-6 pb-6 text-slate-300 text-sm space-y-3 border-t border-slate-800 pt-4">
+                        <p><strong class="text-white">Legal:</strong> Automated Case Law research, drafting contracts with AI assistance, summarizing judgments.</p>
+                        <p><strong class="text-white">Finance:</strong> Algorithmic trading basics, Excel automation with Python scripts generated by AI.</p>
+                        <p><strong class="text-white">Marketing:</strong> Content generation, SEO optimization, and customer persona simulation.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="py-20 bg-slate-950">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-4 text-white">Boardroom Queries</h2>
-            <p class="text-center text-slate-400 mb-12">Solutions for Principals & Chairmen regarding Implementation</p>
-
-            <div class="space-y-4">
-                <div class="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleAccordion(1)">
-                        <span class="font-semibold text-white">How does this improve our NAAC/NBA Accreditation scores?</span>
-                        <i data-lucide="chevron-down" id="icon-1" class="text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="content-1" class="accordion-content px-6 bg-slate-800/50">
-                        <p class="text-slate-300 pb-4 text-sm">
-                            Implementing "AI for Everyone" demonstrates <strong>Value-Added Course</strong> adoption and <strong>Advanced Digital Pedagogy</strong>. We provide specific documentation for your AQAR reports proving industry linkage and skill development.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleAccordion(2)">
-                        <span class="font-semibold text-white">What is the "Placement Guarantee" mechanism?</span>
-                        <i data-lucide="chevron-down" id="icon-2" class="text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="content-2" class="accordion-content px-6 bg-slate-800/50">
-                        <p class="text-slate-300 pb-4 text-sm">
-                            Top scorers in our post-session quiz are flagged in our <strong>Namma Web Talent Acquisition Database</strong>. We offer direct internships to these students and share their profiles with our corporate partners, significantly boosting your institution's placement metrics.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
-                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleAccordion(3)">
-                        <span class="font-semibold text-white">Is this suitable for non-technical streams (Commerce/Arts)?</span>
-                        <i data-lucide="chevron-down" id="icon-3" class="text-slate-400 transition-transform"></i>
-                    </button>
-                    <div id="content-3" class="accordion-content px-6 bg-slate-800/50">
-                        <p class="text-slate-300 pb-4 text-sm">
-                            Absolutely. We have specific tracks (Track C) focused on Finance AI, Legal Research Automation, and Digital Marketing. We do not teach code to commerce students; we teach them how to use AI to analyze markets and draft reports.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="payment" class="py-20 bg-slate-900 relative">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gradient-to-br from-blue-900 to-slate-900 rounded-2xl p-8 md:p-12 border border-blue-500/30 shadow-2xl text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10">
+    <!-- PRICING TIERS -->
+    <section id="pricing" class="py-24 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-bold text-center text-white mb-16">Institutional Investment</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
                 
-                <div class="flex-1 space-y-6">
-                    <h2 class="text-3xl font-bold text-white">Secure Your Partnership</h2>
-                    <p class="text-slate-300">
-                        Initiate the collaboration process. Secure slots for the upcoming academic quarter.
-                    </p>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-3 text-slate-200">
-                            <i data-lucide="check-circle" class="text-green-400 w-5 h-5"></i>
-                            <span>Entity: <strong>NAMMAWEB LLP</strong> [cite: 2]</span>
-                        </div>
-                        <div class="flex items-center gap-3 text-slate-200">
-                            <i data-lucide="smartphone" class="text-blue-400 w-5 h-5"></i>
-                            <span>UPI ID: <code class="bg-slate-800 px-2 py-1 rounded text-blue-300 select-all">nammaweb@sbi</code> [cite: 4]</span>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-4">Supported by GPay, Paytm, PhonePe, BHIM [cite: 5, 8, 9]</p>
+                <!-- Tier 1: Schools -->
+                <div class="bg-slate-950 p-8 rounded-2xl border border-slate-800 hover:border-blue-500 transition relative group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500 rounded-t-2xl"></div>
+                    <h3 class="text-xl font-bold text-white mb-2">Schools (K-12)</h3>
+                    <p class="text-slate-400 text-sm mb-6">Foundation & Digital Safety</p>
+                    <div class="text-4xl font-serif text-white mb-6">₹999 <span class="text-sm font-sans text-slate-500">/student</span></div>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i> 1-Day Interactive Workshop</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i> Parent Digital Safety Guide</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i> "AI Junior" Certificate</li>
+                    </ul>
+                    <a href="#payment" class="block w-full py-3 text-center border border-blue-500 text-blue-400 rounded-lg hover:bg-blue-900/30 transition font-bold">Partner Now</a>
                 </div>
 
-                <div class="bg-white p-4 rounded-xl shadow-lg max-w-xs w-full transform rotate-1 hover:rotate-0 transition duration-300">
-                    <div class="aspect-square bg-slate-100 border-2 border-dashed border-slate-300 rounded-lg flex flex-col items-center justify-center relative overflow-hidden">
-                        <img src="payment-qr.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi%3A%2F%2Fpay%3Fpa%3Dnammaweb%40sbi%26pn%3DNAMMAWEB%2520LLP'; this.alt='QR Code Placeholder'" class="w-full h-full object-contain p-2" alt="Scan to Pay">
-                    </div>
-                    <div class="text-center mt-4">
-                        <p class="text-slate-900 font-bold text-lg">SCAN & PAY [cite: 3]</p>
-                        <p class="text-slate-500 text-xs">Banking Partner: SBI </p>
-                    </div>
+                <!-- Tier 2: Colleges (Best Value) -->
+                <div class="bg-slate-800 p-8 rounded-2xl border-2 border-amber-500 transform scale-105 shadow-2xl relative">
+                    <div class="absolute top-4 right-4 bg-amber-500 text-slate-900 text-xs font-bold px-2 py-1 rounded">MOST POPULAR</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Universities & Colleges</h3>
+                    <p class="text-amber-200 text-sm mb-6">Eng, Med, Law, Commerce</p>
+                    <div class="text-4xl font-serif text-white mb-6">₹1,299 <span class="text-sm font-sans text-slate-400">/student</span></div>
+                    <ul class="space-y-3 text-sm text-white mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Stream-Specific Masterclass</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> <strong>Placement Database Entry</strong></li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Global Proficiency Certificate</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-amber-500"></i> Faculty FDP Included (Free)</li>
+                    </ul>
+                    <a href="#payment" class="block w-full py-3 text-center bg-amber-500 text-slate-900 rounded-lg hover:bg-amber-400 transition font-bold">Secure Slots</a>
+                </div>
+
+                <!-- Tier 3: Premium -->
+                <div class="bg-slate-950 p-8 rounded-2xl border border-slate-800 hover:border-purple-500 transition relative group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-purple-500 rounded-t-2xl"></div>
+                    <h3 class="text-xl font-bold text-white mb-2">Center of Excellence</h3>
+                    <p class="text-slate-400 text-sm mb-6">Full Campus Transformation</p>
+                    <div class="text-4xl font-serif text-white mb-6">Custom <span class="text-sm font-sans text-slate-500">pricing</span></div>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-500"></i> Set up AI Lab on Campus</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-500"></i> Yearly Curriculum Update</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-purple-500"></i> Dedicated Mentor for College</li>
+                    </ul>
+                    <a href="mailto:info@nammaweb.com" class="block w-full py-3 text-center border border-purple-500 text-purple-400 rounded-lg hover:bg-purple-900/30 transition font-bold">Contact CEO</a>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-950 py-10 border-t border-slate-800 text-center">
-        <p class="text-slate-500 text-sm">&copy; 2025 Namma Web. All Rights Reserved.</p>
+    <!-- PAYMENT SECTION -->
+    <section id="payment" class="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-8">Secure Collaboration</h2>
+            <div class="bg-white text-slate-900 rounded-2xl p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="text-left space-y-4">
+                    <h3 class="text-2xl font-bold text-blue-900">NAMMAWEB LLP</h3>
+                    <p class="font-mono bg-slate-100 p-2 rounded inline-block">UPI ID: nammaweb@sbi</p>
+                    <p class="text-sm text-slate-600">Official Banking Partner: SBI</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="px-2 py-1 bg-gray-200 rounded text-xs font-bold">GPay</span>
+                        <span class="px-2 py-1 bg-gray-200 rounded text-xs font-bold">PhonePe</span>
+                        <span class="px-2 py-1 bg-gray-200 rounded text-xs font-bold">Paytm</span>
+                    </div>
+                </div>
+                <div class="bg-slate-100 p-4 rounded-xl border-2 border-dashed border-slate-300">
+                    <!-- QR Code Logic: Uses your file if present, else fallback -->
+                    <img src="payment-qr.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi%3A%2F%2Fpay%3Fpa%3Dnammaweb%40sbi%26pn%3DNAMMAWEB%2520LLP'; this.alt='QR Code Placeholder'" class="w-48 h-48 object-contain" alt="Payment QR">
+                    <p class="text-xs text-center mt-2 font-bold text-slate-500">Scan to Pay Booking Amount</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 py-12 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2025 Namma Web. Advanced Educational Technologies.</p>
+        </div>
     </footer>
 
+    <!-- ================================= -->
+    <!-- INTERACTIVE MODALS (Video & Quiz) -->
+    <!-- ================================= -->
 
-    <div id="quiz-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
-        
-        <div class="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden relative">
-            
-            <button onclick="closeLogin()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div id="step-login" class="p-8 md:p-12">
-                <div class="text-center mb-8">
-                    <div class="mx-auto bg-blue-600/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                        <i data-lucide="lock" class="text-blue-400 w-8 h-8"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white">Student Portal Login</h2>
-                    <p class="text-slate-400 text-sm mt-2">Enter your details to access the certification quiz.</p>
-                </div>
-
-                <form onsubmit="handleLogin(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Student Name</label>
-                        <input type="text" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 outline-none" placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Session OTP</label>
-                        <input type="password" id="otp-input" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 outline-none tracking-widest" placeholder="•••">
-                        <p class="text-xs text-slate-500 mt-1">Hint: Ask your instructor (Try '007')</p>
-                    </div>
-                    <button type="submit" class="w-full btn-luxury text-white font-bold py-3 rounded-lg mt-4">
-                        VERIFY & PROCEED
-                    </button>
-                    <p id="login-error" class="text-red-400 text-xs text-center hidden mt-2">Invalid OTP. Access Denied.</p>
-                </form>
-            </div>
-
-            <div id="step-select" class="hidden p-8 md:p-12 text-center">
-                <h2 class="text-2xl font-bold text-white mb-2">Select Your Stream</h2>
-                <p class="text-slate-400 text-sm mb-8">Choose the module tailored to your education level.</p>
-                
-                <div class="grid gap-4">
-                    <button onclick="startQuiz('school')" class="flex items-center p-4 bg-slate-800 border border-slate-700 rounded-xl hover:bg-slate-700 hover:border-blue-500 transition group">
-                        <div class="bg-pink-500/20 p-3 rounded-lg group-hover:bg-pink-500 transition">
-                            <i data-lucide="backpack" class="text-pink-400 group-hover:text-white w-6 h-6"></i>
-                        </div>
-                        <div class="ml-4 text-left">
-                            <h3 class="font-bold text-white">School Level (Grades 5-12)</h3>
-                            <p class="text-xs text-slate-400">Logic, Safety & Creativity Tools</p>
-                        </div>
-                    </button>
-
-                    <button onclick="startQuiz('engineering')" class="flex items-center p-4 bg-slate-800 border border-slate-700 rounded-xl hover:bg-slate-700 hover:border-blue-500 transition group">
-                        <div class="bg-blue-500/20 p-3 rounded-lg group-hover:bg-blue-500 transition">
-                            <i data-lucide="code-2" class="text-blue-400 group-hover:text-white w-6 h-6"></i>
-                        </div>
-                        <div class="ml-4 text-left">
-                            <h3 class="font-bold text-white">Engineering (B.Tech/BCA)</h3>
-                            <p class="text-xs text-slate-400">Coding, Automation & Dev Tools</p>
-                        </div>
-                    </button>
-
-                    <button onclick="startQuiz('commerce')" class="flex items-center p-4 bg-slate-800 border border-slate-700 rounded-xl hover:bg-slate-700 hover:border-blue-500 transition group">
-                        <div class="bg-yellow-500/20 p-3 rounded-lg group-hover:bg-yellow-500 transition">
-                            <i data-lucide="bar-chart-3" class="text-yellow-400 group-hover:text-white w-6 h-6"></i>
-                        </div>
-                        <div class="ml-4 text-left">
-                            <h3 class="font-bold text-white">Commerce & Management</h3>
-                            <p class="text-xs text-slate-400">Finance, Research & Analytics</p>
-                        </div>
-                    </button>
-                </div>
-            </div>
-
-            <div id="step-quiz" class="hidden p-8 md:p-12">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-xs font-bold text-blue-400 uppercase tracking-wider">Assessment In Progress</span>
-                    <span class="text-xs text-slate-400" id="question-counter">1/5</span>
-                </div>
-                
-                <h3 id="quiz-question" class="text-xl font-bold text-white mb-6">Question Text Goes Here?</h3>
-
-                <div id="quiz-options" class="space-y-3">
-                    </div>
-
-                <button onclick="nextQuestion()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg mt-8 hidden" id="next-btn">
-                    Next Question
-                </button>
-            </div>
-
-            <div id="step-result" class="hidden p-8 md:p-12 text-center">
-                <div class="mx-auto bg-green-500/20 w-20 h-20 rounded-full flex items-center justify-center mb-6 animate-bounce">
-                    <i data-lucide="check-circle-2" class="text-green-400 w-10 h-10"></i>
-                </div>
-                <h2 class="text-3xl font-bold text-white mb-2">Assessment Complete!</h2>
-                <p class="text-slate-300 text-lg mb-6">You scored <span id="final-score" class="text-blue-400 font-bold">0</span>/5</p>
-                
-                <div class="bg-slate-800 p-4 rounded-lg mb-6 border border-slate-700">
-                    <p class="text-sm text-slate-400">Your performance has been recorded.</p>
-                    <p class="text-xs text-green-400 mt-1 font-bold">Eligible for Namma Web Talent Pool</p>
-                </div>
-
-                <button onclick="downloadCertificate()" class="btn-luxury w-full text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2">
-                    <i data-lucide="download" class="w-4 h-4"></i> Download Certificate
-                </button>
-            </div>
-
+    <!-- VIDEO MODAL -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center p-4 backdrop-blur-xl">
+        <button onclick="closeVideoModal()" class="absolute top-6 right-6 text-white hover:text-red-500">
+            <i data-lucide="x-circle" class="w-10 h-10"></i>
+        </button>
+        <div class="w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-slate-700 relative">
+            <!-- YouTube Embed (Placeholder video on AI Education) -->
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/S5t6K9iwcdw?si=AI_DEMO_LINK" title="Namma Web Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
+    <!-- QUIZ PORTAL -->
+    <div id="quiz-portal" class="fixed inset-0 z-[100] bg-slate-950 hidden flex-col">
+        
+        <!-- Portal Header -->
+        <div class="h-16 border-b border-slate-800 flex items-center justify-between px-6 bg-slate-900">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shield-check" class="text-green-500 w-5 h-5"></i>
+                <span class="text-white font-bold">Student Assessment Portal</span>
+            </div>
+            <button onclick="closeQuiz()" class="text-slate-400 hover:text-white text-sm font-medium">Exit Portal</button>
+        </div>
+
+        <!-- STAGE 1: LOGIN -->
+        <div id="stage-login" class="flex-1 flex items-center justify-center p-4">
+            <div class="w-full max-w-md bg-slate-900 p-8 rounded-2xl border border-slate-800 shadow-2xl">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lock" class="text-blue-400 w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">Secure Login</h2>
+                    <p class="text-slate-400 text-sm mt-2">Access granted only to registered institutions.</p>
+                </div>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="text-xs uppercase text-slate-500 font-bold tracking-wider">Student ID / USN</label>
+                        <input type="text" required class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg p-3 mt-1 focus:border-blue-500 outline-none" placeholder="Ex: 1CR19CS001">
+                    </div>
+                    <div>
+                        <label class="text-xs uppercase text-slate-500 font-bold tracking-wider">Session OTP</label>
+                        <input type="password" id="otp-input" required class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg p-3 mt-1 focus:border-blue-500 outline-none tracking-widest" placeholder="• • •">
+                        <p class="text-[10px] text-slate-500 mt-1">Demo OTP: 007</p>
+                    </div>
+                    <button type="submit" class="w-full btn-gold py-3 rounded-lg font-bold mt-4">Authenticate</button>
+                    <p id="login-error" class="text-red-500 text-xs text-center hidden mt-2">⚠ Invalid OTP. Access Denied.</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- STAGE 2: STREAM SELECTION -->
+        <div id="stage-select" class="hidden flex-1 overflow-y-auto p-8">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-white text-center mb-8">Select Your Assessment Track</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <!-- School Track -->
+                    <button onclick="startQuiz('school')" class="p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-blue-500 transition text-left group">
+                        <i data-lucide="book-open" class="w-8 h-8 text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400">School (Grades 5-10)</h3>
+                        <p class="text-slate-400 text-sm mt-2">Topics: Logic, Safety, Basic Tools</p>
+                    </button>
+
+                    <!-- Engineering Track -->
+                    <button onclick="startQuiz('eng')" class="p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-purple-500 transition text-left group">
+                        <i data-lucide="code" class="w-8 h-8 text-purple-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400">Engineering (BE/B.Tech)</h3>
+                        <p class="text-slate-400 text-sm mt-2">Topics: Coding Assistants, System Design</p>
+                    </button>
+
+                    <!-- Medical/Pharmacy -->
+                    <button onclick="startQuiz('med')" class="p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-green-500 transition text-left group">
+                        <i data-lucide="flask-conical" class="w-8 h-8 text-green-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white group-hover:text-green-400">Medical & Pharmacy</h3>
+                        <p class="text-slate-400 text-sm mt-2">Topics: Drug Discovery, Research AI</p>
+                    </button>
+
+                    <!-- Commerce/Law -->
+                    <button onclick="startQuiz('comm')" class="p-6 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-500 transition text-left group">
+                        <i data-lucide="gavel" class="w-8 h-8 text-amber-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400">Commerce & Law</h3>
+                        <p class="text-slate-400 text-sm mt-2">Topics: Analytics, Legal Drafting</p>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3: QUIZ INTERFACE -->
+        <div id="stage-quiz" class="hidden flex-1 flex flex-col items-center justify-center p-4 relative">
+            <!-- Timer Bar -->
+            <div class="absolute top-0 left-0 h-1 bg-blue-600 timer-bar w-full" id="timer-bar"></div>
+            
+            <div class="w-full max-w-2xl">
+                <div class="flex justify-between items-end mb-6">
+                    <span class="text-slate-400 text-sm uppercase tracking-widest">Question <span id="q-current">1</span>/5</span>
+                    <span class="text-white font-mono text-xl font-bold" id="timer-text">00:30</span>
+                </div>
+                
+                <h3 id="q-text" class="text-2xl md:text-3xl font-bold text-white mb-8 leading-snug">Loading Question...</h3>
+                
+                <div id="q-options" class="space-y-4">
+                    <!-- Options Injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4: RESULTS -->
+        <div id="stage-result" class="hidden flex-1 flex flex-col items-center justify-center p-4 text-center">
+            <div class="w-24 h-24 bg-green-900/30 rounded-full flex items-center justify-center mb-6 animate-bounce">
+                <i data-lucide="trophy" class="text-green-400 w-12 h-12"></i>
+            </div>
+            <h2 class="text-4xl font-bold text-white mb-2">Assessment Complete</h2>
+            <p class="text-slate-400 mb-8">Your capability profile has been generated.</p>
+            
+            <div class="bg-slate-900 p-8 rounded-xl border border-slate-800 mb-8 w-full max-w-md">
+                <div class="text-sm text-slate-500 uppercase tracking-widest mb-2">Final Score</div>
+                <div class="text-5xl font-bold text-white mb-2"><span id="final-score">0</span>/5</div>
+                <div class="text-green-400 text-sm font-medium">✓ Added to Namma Web Talent Pool</div>
+            </div>
+
+            <button onclick="window.print()" class="btn-outline px-8 py-3 rounded-lg flex items-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i> Download Provisional Certificate
+            </button>
+            <button onclick="closeQuiz()" class="mt-6 text-slate-500 hover:text-white text-sm">Return to Home</button>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
+
+        // Video Modal Logic
+        function openVideoModal() {
+            document.getElementById('video-modal').classList.remove('hidden');
+            document.getElementById('video-modal').classList.add('flex');
+        }
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.add('hidden');
+            document.getElementById('video-modal').classList.remove('flex');
+        }
 
         // Accordion Logic
         function toggleAccordion(id) {
             const content = document.getElementById(`content-${id}`);
             const icon = document.getElementById(`icon-${id}`);
-            if (content.classList.contains('accordion-open')) {
-                content.classList.remove('accordion-open');
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.classList.add('accordion-open');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
                 icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
             }
         }
 
-        // --- QUIZ SYSTEM ---
-
-        const questions = {
+        // --- QUIZ ENGINE ---
+        
+        const quizData = {
             school: [
-                { q: "Which tool creates images from text descriptions?", options: ["Excel", "Midjourney/DALL-E", "Calculator", "Notepad"], a: 1 },
-                { q: "What is ChatGPT primarily used for?", options: ["Fixing Hardware", "Generating Text/Answers", "Playing Sports", "Cooking"], a: 1 },
-                { q: "Is it safe to share personal passwords with AI?", options: ["Yes, always", "No, never", "Only on Tuesdays", "If it asks politely"], a: 1 },
-                { q: "Which of these is an AI logic concept?", options: ["Photosynthesis", "Algorithms", "Gravity", "History"], a: 1 },
-                { q: "AI learns from...", options: ["Magic", "Data", "Air", "Nothing"], a: 1 }
+                { q: "Which tool generates images from text?", options: ["Midjourney", "MS Excel", "Notepad", "Calculator"], a: 0 },
+                { q: "Is sharing your password with AI safe?", options: ["Yes", "No, Never", "Sometimes", "Only on weekends"], a: 1 },
+                { q: "What connects ChatGPT to the internet?", options: ["Magic", "APIs/Data", "Wires only", "None"], a: 1 },
+                { q: "Robots are mostly programmed using:", options: ["English", "Code/Logic", "Thoughts", "Dreams"], a: 1 },
+                { q: "AI stands for:", options: ["Apple Inc", "Artificial Intelligence", "All Internet", "Auto Image"], a: 1 }
             ],
-            engineering: [
-                { q: "Which AI tool integrates with IDEs to suggest code?", options: ["GitHub Copilot", "Adobe Photoshop", "Spotify", "VLC Player"], a: 0 },
-                { q: "What does LLM stand for?", options: ["Large Language Model", "Long Learning Mode", "Low Latency Machine", "Local Link Manager"], a: 0 },
-                { q: "For automated debugging, you might use:", options: ["DeepCode/Snyk", "MS Paint", "Twitter", "Camera"], a: 0 },
-                { q: "Prompt Engineering is:", options: ["Building physical bridges", "Optimizing inputs for AI models", "Fixing computers", "None of the above"], a: 1 },
-                { q: "Which Python library is standard for AI/ML?", options: ["TensorFlow/PyTorch", "React", "Laravel", "jQuery"], a: 0 }
+            eng: [
+                { q: "Which tool is best for Auto-Completing Code?", options: ["GitHub Copilot", "Photoshop", "Spotify", "VLC"], a: 0 },
+                { q: "What is 'Prompt Engineering'?", options: ["Building bridges", "Optimizing AI Inputs", "Fixing servers", "None"], a: 1 },
+                { q: "Which model powers ChatGPT?", options: ["Transformer (LLM)", "SQL Database", "Excel Sheet", "MP3 Player"], a: 0 },
+                { q: "To debug code automatically, use:", options: ["Snyk/DeepCode", "MS Paint", "Camera", "Printer"], a: 0 },
+                { q: "Can AI write Unit Tests?", options: ["No", "Yes, efficiently", "Only in Java", "Never"], a: 1 }
             ],
-            commerce: [
-                { q: "Which tool helps in summarizing long legal/finance PDF documents?", options: ["Humata/ChatPDF", "Instagram", "Paint", "Calculator"], a: 0 },
-                { q: "AI in stock trading is used for:", options: ["Predictive Analytics", "Printing money", "Designing logos", "Playing games"], a: 0 },
-                { q: "For generating professional emails quickly, you use:", options: ["ChatGPT/Grammarly Go", "TikTok", "Spotify", "Maps"], a: 0 },
-                { q: "Predicting customer behavior uses:", options: ["Data Analytics", "Astrology", "Guesswork", "Coin toss"], a: 0 },
-                { q: "Can AI generate Excel formulas?", options: ["No", "Yes, instantly", "Only text", "Never"], a: 1 }
+            med: [
+                { q: "Which AI folded protein structures?", options: ["AlphaFold", "Siri", "Alexa", "Netflix"], a: 0 },
+                { q: "AI helps in pharmacy by:", options: ["Cooking food", "Drug Interaction Checks", "Playing music", "None"], a: 1 },
+                { q: "Can AI detect tumors in X-Rays?", options: ["Yes, high accuracy", "No", "Only on Sundays", "Maybe"], a: 0 },
+                { q: "Summarizing Medical Journals uses:", options: ["NLP (Natural Language)", "GPS", "Bluetooth", "WiFi"], a: 0 },
+                { q: "Robotic Surgery is:", options: ["Autonomous", "Assisted by AI/Surgeon", "Fake", "Dangerous"], a: 1 }
+            ],
+            comm: [
+                { q: "Tool for summarizing Legal Contracts?", options: ["ChatPDF/Humata", "TikTok", "Paint", "Maps"], a: 0 },
+                { q: "AI in Finance is used for:", options: ["Predictive Analytics", "Drawing cartoons", "Playing games", "None"], a: 0 },
+                { q: "Drafting emails automatically uses:", options: ["Generative AI", "Calculator", "Compass", "Ruler"], a: 0 },
+                { q: "Customer Persona analysis helps in:", options: ["Marketing", "Sleeping", "Eating", "Running"], a: 0 },
+                { q: "Can AI analyze Excel data?", options: ["Yes", "No", "Never", "Only text"], a: 0 }
             ]
         };
 
-        let currentTrack = [];
-        let currentQIndex = 0;
+        let currentQ = 0;
         let score = 0;
+        let activeTrack = [];
+        let timerInterval;
 
         function openLogin() {
-            document.getElementById('quiz-modal').classList.remove('hidden');
-            document.getElementById('quiz-modal').classList.add('flex');
+            document.getElementById('quiz-portal').classList.remove('hidden');
+            document.getElementById('quiz-portal').classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
         }
 
-        function closeLogin() {
-            document.getElementById('quiz-modal').classList.add('hidden');
-            document.getElementById('quiz-modal').classList.remove('flex');
-            // Reset views
-            document.getElementById('step-login').classList.remove('hidden');
-            document.getElementById('step-select').classList.add('hidden');
-            document.getElementById('step-quiz').classList.add('hidden');
-            document.getElementById('step-result').classList.add('hidden');
+        function closeQuiz() {
+            document.getElementById('quiz-portal').classList.add('hidden');
+            document.getElementById('quiz-portal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+            resetQuiz();
+        }
+
+        function resetQuiz() {
+            document.getElementById('stage-login').classList.remove('hidden');
+            document.getElementById('stage-select').classList.add('hidden');
+            document.getElementById('stage-quiz').classList.add('hidden');
+            document.getElementById('stage-result').classList.add('hidden');
+            clearInterval(timerInterval);
         }
 
         function handleLogin(e) {
             e.preventDefault();
             const otp = document.getElementById('otp-input').value;
             if (otp === '007') {
-                document.getElementById('step-login').classList.add('hidden');
-                document.getElementById('step-select').classList.remove('hidden');
+                document.getElementById('stage-login').classList.add('hidden');
+                document.getElementById('stage-select').classList.remove('hidden');
                 document.getElementById('login-error').classList.add('hidden');
             } else {
                 document.getElementById('login-error').classList.remove('hidden');
@@ -437,69 +577,70 @@
         }
 
         function startQuiz(track) {
-            currentTrack = questions[track];
-            currentQIndex = 0;
+            activeTrack = quizData[track];
+            currentQ = 0;
             score = 0;
-            document.getElementById('step-select').classList.add('hidden');
-            document.getElementById('step-quiz').classList.remove('hidden');
+            document.getElementById('stage-select').classList.add('hidden');
+            document.getElementById('stage-quiz').classList.remove('hidden');
             loadQuestion();
         }
 
         function loadQuestion() {
-            const qData = currentTrack[currentQIndex];
-            document.getElementById('quiz-question').innerText = qData.q;
-            document.getElementById('question-counter').innerText = `${currentQIndex + 1}/${currentTrack.length}`;
-            
-            const optionsDiv = document.getElementById('quiz-options');
-            optionsDiv.innerHTML = '';
-            document.getElementById('next-btn').classList.add('hidden');
-
-            qData.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 transition";
-                btn.innerText = opt;
-                btn.onclick = () => checkAnswer(index, btn, qData.a);
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(selectedIndex, btnElement, correctIndex) {
-            // Disable all buttons
-            const buttons = document.getElementById('quiz-options').children;
-            for(let btn of buttons) {
-                btn.disabled = true;
-                btn.classList.add('opacity-50');
-            }
-            btnElement.classList.remove('opacity-50');
-
-            if(selectedIndex === correctIndex) {
-                btnElement.classList.remove('bg-slate-800', 'border-slate-700');
-                btnElement.classList.add('bg-green-600', 'border-green-500', 'text-white');
-                score++;
-            } else {
-                btnElement.classList.remove('bg-slate-800', 'border-slate-700');
-                btnElement.classList.add('bg-red-600', 'border-red-500', 'text-white');
-            }
-            document.getElementById('next-btn').classList.remove('hidden');
-        }
-
-        function nextQuestion() {
-            currentQIndex++;
-            if (currentQIndex < currentTrack.length) {
-                loadQuestion();
-            } else {
+            if (currentQ >= activeTrack.length) {
                 showResults();
+                return;
             }
+
+            const data = activeTrack[currentQ];
+            document.getElementById('q-current').innerText = currentQ + 1;
+            document.getElementById('q-text').innerText = data.q;
+            
+            const optsDiv = document.getElementById('q-options');
+            optsDiv.innerHTML = '';
+
+            data.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 bg-slate-800 border border-slate-700 rounded-lg hover:bg-blue-900/20 hover:border-blue-500 transition text-slate-200";
+                btn.innerText = opt;
+                btn.onclick = () => submitAnswer(idx, data.a);
+                optsDiv.appendChild(btn);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            let timeLeft = 30;
+            const timerText = document.getElementById('timer-text');
+            const timerBar = document.getElementById('timer-bar');
+            
+            timerBar.style.width = '100%';
+            timerText.innerText = `00:${timeLeft}`;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerText.innerText = `00:${timeLeft < 10 ? '0'+timeLeft : timeLeft}`;
+                timerBar.style.width = `${(timeLeft/30)*100}%`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitAnswer(-1, -2); // Timeout
+                }
+            }, 1000);
+        }
+
+        function submitAnswer(selected, correct) {
+            clearInterval(timerInterval);
+            if (selected === correct) score++;
+            currentQ++;
+            loadQuestion();
         }
 
         function showResults() {
-            document.getElementById('step-quiz').classList.add('hidden');
-            document.getElementById('step-result').classList.remove('hidden');
+            document.getElementById('stage-quiz').classList.add('hidden');
+            document.getElementById('stage-result').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
-        }
-
-        function downloadCertificate() {
-            alert("Simulating Certificate Generation... In a real app, this would download a PDF for the student.");
         }
 
     </script>
