@@ -90,9 +90,12 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-lg overflow-hidden border border-slate-700 shadow-lg bg-white">
-                        <!-- Ensure this file name matches exactly what you uploaded to GitHub -->
-                        <img src="Namma_Web_Logo_500x500.jpg" alt="Namma Web Logo" class="w-full h-full object-cover">
+                    <div class="w-12 h-12 rounded-lg overflow-hidden border border-slate-700 shadow-lg bg-white flex items-center justify-center">
+                        <!-- UPDATED: Uses simplified logo.jpg -->
+                        <img src="logo.jpg" 
+                             alt="Namma Web Logo" 
+                             class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-blue-900 font-bold text-xs\'>NW</span>'">
                     </div>
                     <div class="leading-tight">
                         <span class="text-xl font-bold tracking-wide text-white block">NAMMA WEB</span>
